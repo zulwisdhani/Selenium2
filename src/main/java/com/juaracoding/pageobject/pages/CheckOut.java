@@ -34,13 +34,23 @@ public class CheckOut {
     @FindBy(xpath = "//input[@id='billing_company']")
     WebElement company;
 
-    @FindBy(xpath = "/html/body/span/span/span[1]/input")
+//   @FindBy
+//   Select seleccountry = new Select(driver.findElement(By.xpath("//input[@role='combobox']")));
+//           WebElement selectcountry;
+
+    @FindBy(xpath = "//input[@role='combobox']")
     WebElement selectcountry;
+
+    @FindBy(xpath = "//input[@id='billing_address_1']")
+    WebElement street;
+
+    @FindBy(xpath = "//input[@id='billing_address_2']")
+    WebElement unit;
 
     @FindBy(xpath = "//input[@id='billing_address_1']")
     WebElement address;
 
-    @FindBy(xpath = "//input[@id='billing_city']")
+    @FindBy(xpath = "//input[@role='combobox']")
     WebElement city;
 
     @FindBy(xpath = "//span[@id='select2-billing_state-container']")
@@ -75,18 +85,23 @@ public class CheckOut {
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0,400)");
-        Select country = new Select(driver.findElement(By.xpath("/html/body/span/span/span[1]/input")));
-        country.selectByVisibleText("Indonesia");
-//        selectcountry.sendKeys("Indonesia");
-        System.out.println("Indonesia");
+
+        selectcountry.click();
+        Select select = new Select(selectcountry);
+        select.selectByVisibleText("Indonesia");
+
+        street.click();
+        street.sendKeys("Jalan Melati");
+        unit.click();
+        unit.sendKeys("10A");
         address.click();
         address.sendKeys("rumah");
         city.click();
         city.sendKeys("City");
         state.click();
-        state.sendKeys("Riau");
+        Select selectState = new Select(state);
+        selectState.selectByVisibleText("Riau");
         pin.click();
-
         phone.sendKeys("1234567890");
         email.click();
         email.sendKeys("sindy@gmail.com");
